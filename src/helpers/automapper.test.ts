@@ -1,19 +1,28 @@
 import { mapperFabric } from ".";
-import { FlatRequired, TransformAction } from "../interfaces";
+import { FlatRequired, IfExact, IfExtends, IfIncludes, Mapper, TransformAction } from "../interfaces";
  
 describe('function \'mapperFabric\' to test', () => {
     it('should map objects', () => {
 
         type TIssue1 = {
             a: number,
-            b: boolean
+            b: boolean,
+            //e?: string,
         };
          
         type TIssue2 = {
             c: number,
             b: string,
-            d: boolean
+            d: boolean,
+            e: boolean,
         };
+
+        const transformattor = mapperFabric<TIssue1, TIssue2>()
+            .map('a', (a) => ({c: a, b: 'asdas', DELETE_ME_PLEASE: 123 as const })) //TODO: cover such case
+            .map('b', (b) => ({d: b, e: true}))
+            .result;
+
+        const someTansformerConsumer = (inObj: TIssue1): TIssue2 => transformattor(inObj);
  
         const issueMapper =
             mapperFabric<TIssue1, TIssue2>()
