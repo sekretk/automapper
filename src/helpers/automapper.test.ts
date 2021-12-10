@@ -18,7 +18,7 @@ describe('function \'mapperFabric\' to test', () => {
         };
 
         const transformattor = mapperFabric<TIssue1, TIssue2>()
-            .map('a', (a) => ({c: a, b: 'asdas', DELETE_ME_PLEASE: 123 as const })) //TODO: cover such case
+            .map('a', (a) => ({c: a, b: 'asdas'}))
             .map('b', (b) => ({d: b, e: true}))
             .result;
 
